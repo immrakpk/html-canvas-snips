@@ -31,8 +31,8 @@
     const flagHeight = 150;
     const flagX = canvas.width / 2 - flagWidth / 2;
     const flagY = canvas.height / 2 - flagHeight / 2;
-    const waveLength = flagWidth / 6; // Adjust this value for different waving speed
-    const waveHeight = flagHeight / 6; // Adjust this value for different waving amplitude
+    const waveLength = flagHeight / 6; // Adjust this value for different waving speed
+    const waveHeight = flagWidth / 6; // Adjust this value for different waving amplitude
 
     let time = 0;
 
@@ -43,12 +43,12 @@
         ctx.fillStyle = '#007FFF'; // Blue color
         ctx.beginPath();
         ctx.moveTo(flagX, flagY);
-        for (let x = flagX; x <= flagX + flagWidth; x += 10) {
-            const y = flagY + Math.sin((x + time) / waveLength) * waveHeight;
+        for (let y = flagY; y <= flagY + flagHeight; y += 10) {
+            const x = flagX + Math.sin((y + time) / waveLength) * waveHeight;
             ctx.lineTo(x, y);
         }
         ctx.lineTo(flagX + flagWidth, flagY + flagHeight);
-        ctx.lineTo(flagX, flagY + flagHeight);
+        ctx.lineTo(flagX + flagWidth, flagY);
         ctx.closePath();
         ctx.fill();
     }
