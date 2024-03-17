@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Waving Flag Animation</title>
+<style>
+    body {
+        margin: 0;
+        overflow: hidden;
+        background-color: #000;
+    }
+    canvas {
+        display: block;
+    }
+</style>
+</head>
+<body>
+<canvas id="flagCanvas"></canvas>
+
+<script>
+    const canvas = document.getElementById('flagCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Set canvas size
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Flag properties
+    const flagWidth = 200;
+    const flagHeight = 150;
+    const flagX = canvas.width / 2 - flagWidth / 2;
+    const flagY = canvas.height / 2 - flagHeight / 2;
+    const waveLength = flagWidth / 6; // Adjust this value for different waving speed
+    const waveHeight = flagHeight / 6; // Adjust this value for different waving amplitude
+
+    let time = 0;
+
+    function drawFlag() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Draw flag
+        ctx.fillStyle = '#007FFF'; // Blue color
+        ctx.beginPath();
+        ctx.moveTo(flagX, flagY);
+        for (let x = flagX; x <= flagX + flagWidth; x += 10) {
+            const y = flagY + Math.sin((x + time) / waveLength) * waveHeight;
+            ctx.lineTo(x, y);
+        }
+        ctx.lineTo(flagX + flagWidth, flagY + flagHeight);
+        ctx.lineTo(flagX, flagY + flagHeight);
+        ctx.closePath();
+        ctx.fill();
+    }
+
+    function animate() {
+        time += 0.1; // Adjust this value for different waving speed
+        drawFlag();
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
+</body>
+</html>
